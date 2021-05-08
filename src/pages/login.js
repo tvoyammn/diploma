@@ -15,33 +15,33 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import logo from "../images/logo.png";
 
 const styles = {
-  form: {
-    textAlign: "center",
-  },
-  image: {
-    margin: "20px auto 20px auto",
-    width: "100%",
-    heigth: "100%",
-  },
-  pageTitle: {
-    margin: "10px auto 10px auto",
-  },
-  textField: {
-    margin: "5px auto 5px auto",
-  },
-  button: {
-    marginTop: 20,
-    position: 'relative'
-  },
-  customError: {
-    color: "red",
-    fontSize: "0.8rem",
-    marginTop: 10,
-  },
-  progress: {
-      position: 'absolute'
-  }
-};
+    form: {
+        textAlign: "center",
+      },
+    image: {
+        margin: "20px auto 20px auto",
+        width: "100%",
+        heigth: "100%",
+      },
+    pageTitle: {
+        margin: "10px auto 10px auto",
+      },
+    textField: {
+        margin: "5px auto 5px auto",
+      },
+    button: {
+        marginTop: 20,
+        position: 'relative'
+      },
+    customError: {
+        color: "red",
+        fontSize: "0.8rem",
+        marginTop: 10,
+      },
+    progress: {
+        position: 'absolute'
+      }
+}
 
 class login extends Component {
   constructor() {
@@ -67,6 +67,7 @@ class login extends Component {
       .post("/login", userData)
       .then((res) => {
         console.log(res.data);
+        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
         this.setState({
           loading: false,
         });
@@ -133,10 +134,11 @@ class login extends Component {
               variant="contained"
               color="primary"
               className={classes.button}
+              disabled={loading}
             >
               Login
               {loading && (
-                  <CircularProgress className={classes.progress} />
+                  <CircularProgress size={30} className={classes.progress} />
               )}
             </Button>
             <br/>
