@@ -10,14 +10,14 @@ const state = proxy({
   items: {}
 });
 
-function Heart(props) {
+function Airways(props) {
   const group = useRef()
 
   const snap = useSnapshot(state)
 
   const [hovered, set] = useState(null)
 
-  const { nodes, materials } = useGLTF('/heartCompressed.glb')
+  const { nodes, materials } = useGLTF('/airwaysCompressed.glb')
   return (
     <group ref={group} {...props} dispose={null}
       onPointerOver = {(e) => { e.stopPropagation(); set(e.object.material.name) }}
@@ -26,17 +26,16 @@ function Heart(props) {
         onPointerMissed = {(e) => { state.current = null }}
     >
       <group rotation={[-Math.PI / 2, 0, 0]}>
-        <group position={[-5.26, 2.68, -4.03]} rotation={[-1.31, -0.32, 2.45]} scale={[1, 1, 1]}>
+        <group position={[0, -43.76, -497.53]} rotation={[-1.9, 0, 0]}>
           <group rotation={[Math.PI / 2, 0, 0]}>
-            <mesh geometry={nodes.Veins_Veins_0.geometry} material={materials.Veins} />
-            <mesh geometry={nodes.Hart_basis_Hart_basis_0.geometry} material={materials.Hart_basis} />
-            <mesh geometry={nodes.Valves_Valves_0.geometry} material={materials.Valves} />
-            <mesh geometry={nodes.Aorta_Aorta_0.geometry} material={materials.Aorta} />
-            <mesh geometry={nodes.Avvalves_Avvalves_0.geometry} material={materials.Avvalves} />
-            <mesh geometry={nodes.Ligament_Ligament_0.geometry} material={materials.Ligament} />
-            <mesh geometry={nodes.Pulmonary_trunk_Pulmonary_trunk_0.geometry} material={materials.Pulmonary_trunk} />
-            <mesh geometry={nodes.Heartear_Heartear_0.geometry} material={materials.Heartear} />
-            <mesh geometry={nodes.Arteries2_Arteries2_0.geometry} material={materials.Arteries2} />
+            <mesh geometry={nodes.bronchi1_1_bronchi1_1_0.geometry} material={materials.bronchi1_1} />
+            <mesh geometry={nodes.bronchi1_bronchi1_0.geometry} material={materials.bronchi1} />
+            <mesh geometry={nodes.Linkerlong_Linkerlong_0.geometry} material={materials.Linkerlong} />
+            <mesh geometry={nodes.Trachea_kraakbeen_Trachea_kraakbeen_0.geometry} material={materials.Trachea_kraakbeen} />
+            <mesh geometry={nodes.Tussen_hyoid_en_thyroid_Tussen_hyoid_en_thyroid_0.geometry} material={materials.Tussen_hyoid_en_thyroid} />
+            <mesh geometry={nodes.Hyoid_bone_Hyoid_bone_0.geometry} material={materials.Hyoid_bone} />
+            <mesh geometry={nodes.Thyroid_gland_Thyroid_gland_0.geometry} material={materials.Thyroid_gland} />
+            <mesh geometry={nodes.PM3D_Sphere3D2_PM3D_Sphere3D2_0.geometry} material={materials.PM3D_Sphere3D2} />
           </group>
         </group>
       </group>
@@ -49,22 +48,21 @@ function Picker() {
   return(
       <div style={{display: snap.current?"block":"none"}}>
            { snap.current }
-           { snap.current === 'Veins' ? <h1> Veins </h1>
-           : snap.current === 'Hart_basis' ? <h1> Base of heart </h1>
-           : snap.current === 'Valves' ? <h1> Valves </h1>
-           : snap.current === 'Aorta' ? <h1> Aorta </h1>
-           : snap.current === 'Avvalves' ? <h1> Atrioventricular valves </h1>
-           : snap.current === 'Ligament' ? <h1> Ligament </h1>
-           : snap.current === 'Pulmonary_trunk' ? <h1> Pulmonary trunk </h1>
-           : snap.current === 'Heartear' ? <h1> Heartear </h1>
-           : snap.current === 'Arteries2' ? <h1> Arteries </h1>
+           { snap.current === 'bronchi1_1' ? <h1> Smooth muscle fibers </h1>
+           : snap.current === 'bronchi1' ? <h1> Bronchi </h1>
+           : snap.current === 'Linkerlong' ? <h1> Linker long </h1>
+           : snap.current === 'Trachea_kraakbeen' ? <h1> Cartilagines trachealis </h1>
+           : snap.current === 'Tussen_hyoid_en_thyroid' ? <h1> Atrioventricular valves </h1> //
+           : snap.current === 'Hyoid_bone' ? <h1> Cartilago thyroidea </h1>
+           : snap.current === 'Thyroid_gland' ? <h1> Cricoidea </h1>
+           : snap.current === 'PM3D_Sphere3D2' ? <h1> Alveoli </h1>
            : null
           }
       </div>
   )
 }
 
-export default class HeartWindow extends Component {
+export default class AirwaysWindow extends Component {
   render() {
       return (
           <>
@@ -78,7 +76,7 @@ export default class HeartWindow extends Component {
                   <ambientLight intensity={0.5}/>
                   <pointLight position={[10, 10, 10]} />
                   <Suspense fallback="null">
-                      <Heart />
+                      <Airways />
                   </Suspense>
                   <OrbitControls />
                   </Canvas>

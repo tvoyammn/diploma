@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 
-import videosImage from '../components/images/videosImage.jpg'
-import audioImage from '../components/images/audioImage.png'
-import articleImage from '../components/images/articleImage.png'
+import videosImage from '../images/videosImage.jpg'
+import audioImage from '../images/audioImage.png'
+import articleImage from '../images/articleImage.png'
 
-export default class Learning extends Component {
+export default class learning extends Component {
     render() {
         return (
             <>

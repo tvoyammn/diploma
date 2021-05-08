@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Container } from 'react-bootstrap';
 import { STLViewer } from 'react-stl-obj-viewer';
 
-export default class Test extends Component {
+export default class test extends Component {
     constructor() {
         super();
         this.state = {

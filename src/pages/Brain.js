@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class Brain extends Component {
+export default class brain extends Component {
     render() {
         return (
             <div>
