@@ -1,9 +1,15 @@
-import { SET_VIDEOS, LIKE_VIDEO, UNLIKE_VIDEO, LOADING_DATA } from "../types";
+import {
+  SET_VIDEOS,
+  LIKE_VIDEO,
+  UNLIKE_VIDEO,
+  LOADING_DATA,
+  DELETE_VIDEO,
+} from "../types";
 
 const initialState = {
   videos: [],
   video: {},
-  loading: false
+  loading: false,
 };
 
 export default function (state = initialState, action) {
@@ -21,12 +27,22 @@ export default function (state = initialState, action) {
       };
     case LIKE_VIDEO:
     case UNLIKE_VIDEO:
-      let index = state.videos.findIndex((video) => video.videoId === action.payload.videoId);
+      let index = state.videos.findIndex(
+        (video) => video.videoId === action.payload.videoId
+      );
       state.videos[index] = action.payload;
       return {
-          ...state
-      }
+        ...state,
+      };
+    case DELETE_VIDEO:
+      index = state.videos.findIndex(
+        (video) => video.videoId === action.payload
+      );
+      state.videos.splice(index, 1);
+      return {
+        ...state,
+      };
     default:
-        return state;
+      return state;
   }
 }

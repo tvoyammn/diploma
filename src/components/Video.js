@@ -11,7 +11,6 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 
@@ -21,10 +20,13 @@ import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 
 import ReactPlayer from "react-player";
 
+import DeleteVideo from './DeleteVideo'
+
 import MyButton from "../util/MyButton";
 
 const styles = {
   card: {
+    position: 'relative',
     display: "flex",
     marginBottom: 20,
   },
@@ -73,7 +75,7 @@ class Video extends Component {
         commentCount,
         url,
       },
-      user: { authenticated },
+      user: { authenticated, credentials: { handle } },
     } = this.props;
 
     const likeButton = !authenticated ? (
@@ -91,6 +93,10 @@ class Video extends Component {
         <FavoriteBorder color="primary" />
       </MyButton>
     );
+
+    const deleteButton = authenticated && userHandle === handle ? (
+      <DeleteVideo videoId={ videoId }/>
+    ) : null
 
     return (
       <Card className={classes.card}>
@@ -114,6 +120,7 @@ class Video extends Component {
             <Avatar src={userImage} />
             {userHandle}
           </Typography>
+          {deleteButton}
           <Typography variant="body2" color="textSecondary">
             {dayjs(addedAt).fromNow()}
           </Typography>
