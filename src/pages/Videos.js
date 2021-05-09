@@ -1,46 +1,51 @@
-import React, { useState, Component } from 'react'
-import axios from 'axios'
-import { Container, Button } from 'react-bootstrap';
-import Grid from '@material-ui/core/Grid'
+import React, { useState, Component } from "react";
+import axios from "axios";
+import PropTypes from "prop-types";
 
-import AddVideoModal from '../components/AddVideoModal'
-import VideosList from '../components/VideosList'
-import Video from '../components/Video'
+import { connect } from "react-redux";
+import { getVideos } from "../redux/actions/dataActions";
 
+import Grid from "@material-ui/core/Grid";
 
-export default class videos extends Component {
-    state = {
-        videos: null
-    }
-    componentDidMount() {
-        axios
-            .get('/videos')
-            .then(res => {
-                console.log(res.data)
-                this.setState({
-                    videos: res.data
-                })
-            })
-            .catch(err => console.log(err));
-    }
+import AddVideoModal from "../components/AddVideoModal";
+import VideosList from "../components/VideosList";
+import Video from "../components/Video";
 
-    render() {
-        let recentVideosMarkup = this.state.videos ? (
-            this.state.videos.map(video => <Video key={video.videoId} video={video} />)
-        ) : <p>Loading...</p>
-        return (
-          <Grid container spacing={10}>
-              <Grid item sm={4} xs={12}>
-                  <p>Filter...</p>
-              </Grid>
-              <Grid item sm={8} xs={12}>
-                  {recentVideosMarkup}
-              </Grid>
-           </Grid>
-        )
-    }
+class videos extends Component {
+  componentDidMount() {
+    this.props.getVideos();
+  }
+
+  render() {
+    const { videos, loading } = this.props.data;
+    let recentVideosMarkup = !loading ? (
+      videos.map((video) => <Video key={video.videoId} video={video} />)
+    ) : (
+      <p>Loading...</p>
+    );
+    return (
+      <Grid container spacing={10}>
+        <Grid item sm={4} xs={12}>
+          <p>Filter...</p>
+        </Grid>
+        <Grid item sm={8} xs={12}>
+          {recentVideosMarkup}
+        </Grid>
+      </Grid>
+    );
+  }
 }
 
+videos.propTypes = {
+  getVideos: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  data: state.data,
+});
+
+export default connect(mapStateToProps, { getVideos })(videos);
 
 // export default function Videos() {
 //     const [isOpen, setOpen] = useState(false)
@@ -54,19 +59,19 @@ export default class videos extends Component {
 //         <Container>
 //             <h1>Videos</h1>
 //             <Button onClick={openModal}>Add Video</Button>
-//             { isOpen ? 
-//             <AddVideoModal 
-//                 closeModal={closeModal} 
+//             { isOpen ?
+//             <AddVideoModal
+//                 closeModal={closeModal}
 //                 isOpen={isOpen}
 //                 id={1}
 //             />
-//                 : 
-//                 null 
+//                 :
+//                 null
 //             }
 
 //             <VideosList />
 //         </Container>
 //         </>
 //     )
-    
+
 // }
