@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ReactPlayer from 'react-player'
-import firebase from '../util/firebase'
+import firebase from '../../util/firebase'
 
 
 export default function VideosList() {

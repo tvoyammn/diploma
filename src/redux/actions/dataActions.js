@@ -4,6 +4,12 @@ import {
   LIKE_VIDEO,
   UNLIKE_VIDEO,
   DELETE_VIDEO,
+  LOADING_UI,
+  SET_ERRORS,
+  CLEAR_ERRORS,
+  POST_VIDEO,
+  SET_VIDEO,
+  STOP_LOADING_UI
 } from "../types";
 import axios from "axios";
 
@@ -25,6 +31,38 @@ export const getVideos = () => (dispatch) => {
       });
     });
 };
+
+//get a video
+export const getVideo = (videoId) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios.get(`/video/${videoId}`)
+    .then(res => {
+      dispatch({ type: SET_VIDEO,
+        payload: res.data
+       })
+       dispatch({ type: STOP_LOADING_UI })
+    })
+    .catch(err => console.log(err))
+}
+
+//post a video
+export const postVideo = (newVideo) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios.post('/video', newVideo)
+    .then(res => {
+      dispatch({
+        type: POST_VIDEO,
+        payload: res.data
+      })
+      dispatch({ type: CLEAR_ERRORS })
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      })
+    })
+}
 
 //like a video
 export const likeVideo = (videoId) => (dispatch) => {
@@ -60,3 +98,7 @@ export const deleteVideo = (videoId) => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const clearErrors = () => (dispatch) => {
+  dispatch({ type: CLEAR_ERRORS })
+}

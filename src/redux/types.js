@@ -8,9 +8,11 @@ export const SET_ERRORS = "SET_ERRORS";
 export const LOADING_UI = "LOADING_UI";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const LOADING_DATA = "LOADING_DATA";
+export const STOP_LOADING_UI ="STOP_LOADING_UI"
 //Data reducer types
 export const SET_VIDEOS = "SET_VIDEOS";
 export const SET_VIDEO = "SET_VIDEO";
 export const LIKE_VIDEO = "LIKE_VIDEO";
 export const UNLIKE_VIDEO = "UNLIKE_VIDEO";
 export const DELETE_VIDEO = "DELETE_VIDEO";
+export const POST_VIDEO = 'POST_VIDEO'

@@ -7,9 +7,8 @@ import { getVideos } from "../redux/actions/dataActions";
 
 import Grid from "@material-ui/core/Grid";
 
-import AddVideoModal from "../components/AddVideoModal";
-import VideosList from "../components/VideosList";
-import Video from "../components/Video";
+import VideosList from "../components/video/VideosList";
+import Video from "../components/video/Video";
 
 class videos extends Component {
   componentDidMount() {

@@ -15,7 +15,7 @@ import themeFile from "./util/theme";
 
 import jwtDecode from "jwt-decode";
 
-import Navbar from "./components/Navbar";
+import Navbar from "./components/layout/Navbar";
 import AuthRoute from "./util/AuthRoute";
 
 import home from "./pages/home";

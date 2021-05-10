@@ -1,9 +1,12 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
   SET_VIDEOS,
   LIKE_VIDEO,
   UNLIKE_VIDEO,
   LOADING_DATA,
   DELETE_VIDEO,
+  POST_VIDEO,
+  SET_VIDEO,
 } from "../types";
 
 const initialState = {
@@ -25,12 +28,20 @@ export default function (state = initialState, action) {
         videos: action.payload,
         loading: false,
       };
+    case SET_VIDEO:
+      return {
+        ...state,
+        video: action.payload
+      }
     case LIKE_VIDEO:
     case UNLIKE_VIDEO:
       let index = state.videos.findIndex(
         (video) => video.videoId === action.payload.videoId
       );
       state.videos[index] = action.payload;
+      if(state.video.videoId === action.payload.videoId) {
+        state.video = action.payload
+      }
       return {
         ...state,
       };
@@ -42,6 +53,14 @@ export default function (state = initialState, action) {
       return {
         ...state,
       };
+    case POST_VIDEO:
+      return {
+        ...state,
+        videos: [
+          action.payload,
+          ...state.videos
+        ]
+      }
     default:
       return state;
   }

@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { likeVideo, unlikeVideo } from "../redux/actions/dataActions";
-
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -15,14 +13,14 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 
 import ChatIcon from "@material-ui/icons/Chat";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 
 import ReactPlayer from "react-player";
 
 import DeleteVideo from './DeleteVideo'
+import VideoDialog from './VideoDialog'
 
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
+import LikeButton from "../LikeButton";
 
 const styles = {
   card: {
@@ -42,24 +40,6 @@ const styles = {
 };
 
 class Video extends Component {
-  likedVideo = () => {
-    if (
-      this.props.user.likes &&
-      this.props.user.likes.find(
-        (like) => like.videoId === this.props.video.videoId
-      )
-    )
-      return true;
-    else return false;
-  };
-
-  likeVideo = () => {
-    this.props.likeVideo(this.props.video.videoId);
-  };
-
-  unlikeVideo = () => {
-    this.props.unlikeVideo(this.props.video.videoId);
-  };
 
   render() {
     dayjs.extend(relativeTime);
@@ -78,21 +58,7 @@ class Video extends Component {
       user: { authenticated, credentials: { handle } },
     } = this.props;
 
-    const likeButton = !authenticated ? (
-      <MyButton tip="Like">
-        <Link to="/login">
-          <FavoriteBorder color="primary" />
-        </Link>
-      </MyButton>
-    ) : this.likedVideo() ? (
-      <MyButton tip="Undo like" onClick={this.unlikeVideo}>
-        <FavoriteIcon color="primary" />
-      </MyButton>
-    ) : (
-      <MyButton tip="Like" onClick={this.likeVideo}>
-        <FavoriteBorder color="primary" />
-      </MyButton>
-    );
+    
 
     const deleteButton = authenticated && userHandle === handle ? (
       <DeleteVideo videoId={ videoId }/>
@@ -112,7 +78,7 @@ class Video extends Component {
           <Typography
             variant="body2"
             component={Link}
-            to={`/users/${userHandle}`}
+            to={`/profile/${userHandle}`}
             color="primary"
             className={classes.userAdded}
           >
@@ -124,12 +90,13 @@ class Video extends Component {
           <Typography variant="body2" color="textSecondary">
             {dayjs(addedAt).fromNow()}
           </Typography>
-          {likeButton}
+          <LikeButton videoId={videoId} />
           <span>{likeCount} likes</span>
           <MyButton tip="comments">
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentCount} comments</span>
+          <VideoDialog videoId={videoId} userHandle={userHandle} />
         </CardContent>
       </Card>
     );
@@ -148,12 +115,6 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-const mapActionsToProps = {
-  likeVideo,
-  unlikeVideo,
-};
-
 export default connect(
-  mapStateToProps,
-  mapActionsToProps
+  mapStateToProps
 )(withStyles(styles)(Video));

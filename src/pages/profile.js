@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-import EditDetailsButton from "../components/EditDetailsButton";
+import EditDetailsButton from "../components/profile/EditDetailsButton";
 
 import { connect } from "react-redux";
 import { logoutUser, uploadImage } from "../redux/actions/userActions";
@@ -116,7 +116,7 @@ class profile extends Component {
             <div className="profile-details">
               <MuiLink
                 component={Link}
-                to={`/users/${handle}`}
+                to={`/profile/${handle}`}
                 color="primary"
                 variant="h5"
               >
