@@ -11,9 +11,8 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
 
-import NotificationsIcon from '@material-ui/icons/Notifications'
-
-import UploadContent from '../UploadContent'
+import UploadContent from './UploadContent'
+import Notifications from './Notifications'
 
 import MyButton from '../../util/MyButton'
 
@@ -49,10 +48,8 @@ class Navbar extends Component {
                 <Button color='inherit' component={Link} to="/vr"> VR </Button>
                 <Button color='inherit' component={Link} to="/test"> TEST </Button>
                 <Button color='inherit' component={Link} to="/anatomyatlas"> Anatomy Atlas </Button>
-                <Button color='inherit' component={Link} to="/profile/:handle"> Profile </Button>
-              <MyButton tip="Notifications">
-                <NotificationsIcon />
-              </MyButton>
+                <Button color='inherit' component={Link} to={`/profile/${handle}`}> Profile </Button>
+              <Notifications />
               <UploadContent />
                 <Button color='inherit' component={Link} to='/' onClick={this.handleLogout}>Log out</Button>
             </Fragment>

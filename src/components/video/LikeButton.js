@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
-import { likeVideo, unlikeVideo } from "../redux/actions/dataActions";
+import { likeVideo, unlikeVideo } from "../../redux/actions/dataActions";
 
 import { Link } from "react-router-dom";
 
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 import { propTypes } from "react-bootstrap/esm/Image";
 
 export class LikeButton extends Component {

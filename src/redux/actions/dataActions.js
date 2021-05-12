@@ -9,7 +9,8 @@ import {
   CLEAR_ERRORS,
   POST_VIDEO,
   SET_VIDEO,
-  STOP_LOADING_UI
+  STOP_LOADING_UI,
+  SUBMIT_COMMENT,
 } from "../types";
 import axios from "axios";
 
@@ -35,34 +36,34 @@ export const getVideos = () => (dispatch) => {
 //get a video
 export const getVideo = (videoId) => (dispatch) => {
   dispatch({ type: LOADING_UI });
-  axios.get(`/video/${videoId}`)
-    .then(res => {
-      dispatch({ type: SET_VIDEO,
-        payload: res.data
-       })
-       dispatch({ type: STOP_LOADING_UI })
+  axios
+    .get(`/video/${videoId}`)
+    .then((res) => {
+      dispatch({ type: SET_VIDEO, payload: res.data });
+      dispatch({ type: STOP_LOADING_UI });
     })
-    .catch(err => console.log(err))
-}
+    .catch((err) => console.log(err));
+};
 
 //post a video
 export const postVideo = (newVideo) => (dispatch) => {
   dispatch({ type: LOADING_UI });
-  axios.post('/video', newVideo)
-    .then(res => {
+  axios
+    .post("/video", newVideo)
+    .then((res) => {
       dispatch({
         type: POST_VIDEO,
-        payload: res.data
-      })
-      dispatch({ type: CLEAR_ERRORS })
+        payload: res.data,
+      });
+      dispatch(clearErrors());
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: SET_ERRORS,
-        payload: err.response.data
-      })
-    })
-}
+        payload: err.response.data,
+      });
+    });
+};
 
 //like a video
 export const likeVideo = (videoId) => (dispatch) => {
@@ -89,6 +90,24 @@ export const unlikeVideo = (videoId) => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
+//Submit a comment
+export const submitComment = (videoId, commentData) => (dispatch) => {
+  axios
+    .post(`/video/${videoId}/comment`, commentData)
+    .then((res) => {
+      dispatch({
+        type: SUBMIT_COMMENT,
+        payload: res.data,
+      });
+      dispatch(clearErrors());
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
 
 export const deleteVideo = (videoId) => (dispatch) => {
   axios
@@ -99,6 +118,24 @@ export const deleteVideo = (videoId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+export const getUserData = (userHandle) => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get(`/user/${userHandle}`)
+    .then((res) => {
+      dispatch({
+        type: SET_VIDEOS,
+        payload: res.data.videos,
+      });
+    })
+    .catch(() => {
+      dispatch({
+        type: SET_VIDEOS,
+        payload: null,
+      });
+    });
+};
+
 export const clearErrors = () => (dispatch) => {
-  dispatch({ type: CLEAR_ERRORS })
-}
+  dispatch({ type: CLEAR_ERRORS });
+};

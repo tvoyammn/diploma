@@ -7,6 +7,7 @@ import {
   DELETE_VIDEO,
   POST_VIDEO,
   SET_VIDEO,
+  SUBMIT_COMMENT,
 } from "../types";
 
 const initialState = {
@@ -60,6 +61,14 @@ export default function (state = initialState, action) {
           action.payload,
           ...state.videos
         ]
+      }
+    case SUBMIT_COMMENT:
+      return {
+        ...state,
+        video: {
+          ...state.video,
+          comments: [action.payload, ...state.video.comments]
+        }
       }
     default:
       return state;

@@ -20,7 +20,7 @@ import DeleteVideo from './DeleteVideo'
 import VideoDialog from './VideoDialog'
 
 import MyButton from "../../util/MyButton";
-import LikeButton from "../LikeButton";
+import LikeButton from "./LikeButton";
 
 const styles = {
   card: {
@@ -96,7 +96,7 @@ class Video extends Component {
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentCount} comments</span>
-          <VideoDialog videoId={videoId} userHandle={userHandle} />
+          <VideoDialog videoId={videoId} userHandle={userHandle} openDialog={this.props.openDialog} />
         </CardContent>
       </Card>
     );
@@ -104,11 +104,10 @@ class Video extends Component {
 }
 
 Video.propTypes = {
-  likeVideo: PropTypes.func.isRequired,
-  unlikeVideo: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   video: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  openDialog: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({

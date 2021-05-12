@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 
 import VideosList from "../components/video/VideosList";
 import Video from "../components/video/Video";
+import VideoSkeleton from '../util/VideoSkeleton'
 
 class videos extends Component {
   componentDidMount() {
@@ -20,7 +21,7 @@ class videos extends Component {
     let recentVideosMarkup = !loading ? (
       videos.map((video) => <Video key={video.videoId} video={video} />)
     ) : (
-      <p>Loading...</p>
+      <VideoSkeleton />
     );
     return (
       <Grid container spacing={10}>

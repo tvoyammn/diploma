@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
-import { postVideo, clearErrors } from "../redux/actions/dataActions";
+import { postVideo, clearErrors } from "../../redux/actions/dataActions";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -26,7 +26,7 @@ import VideoCallIcon from "@material-ui/icons/VideoCall";
 import AudiotrackIcon from "@material-ui/icons/Audiotrack";
 import DescriptionIcon from "@material-ui/icons/Description";
 
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 
 const styles = {
   //...theme,
@@ -45,36 +45,7 @@ const styles = {
   },
 };
 
-const UploadMenu = withStyles({
-  paper: {
-    border: "1px solid #d3d4d5",
-  },
-})((props) => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "center",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "center",
-    }}
-    {...props}
-  />
-));
 
-const UploadMenuItem = withStyles((theme) => ({
-  root: {
-    "&:focus": {
-      backgroundColor: theme.palette.primary.main,
-      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
-        color: theme.palette.common.white,
-      },
-    },
-  },
-}))((props) => <MenuItem {...props} />);
 
 class UploadContent extends Component {
   state = {
@@ -159,6 +130,37 @@ class UploadContent extends Component {
       classes,
       UI: { loading },
     } = this.props;
+
+    const UploadMenu = withStyles({
+      paper: {
+        border: "1px solid #d3d4d5",
+      },
+    })((props) => (
+      <Menu
+        elevation={0}
+        getContentAnchorEl={null}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        {...props}
+      />
+    ));
+    
+    const UploadMenuItem = withStyles((theme) => ({
+      root: {
+        "&:focus": {
+          backgroundColor: theme.palette.primary.main,
+          "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+            color: theme.palette.common.white,
+          },
+        },
+      },
+    }))((props) => <MenuItem {...props} />);
 
     return (
       <Fragment>
