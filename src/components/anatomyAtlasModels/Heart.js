@@ -1,9 +1,11 @@
-import React, { useRef, useState, Component, Suspense } from 'react'
+import React, { useRef, useState, Component, Suspense, Fragment } from 'react'
 import { OrbitControls, PerspectiveCamera} from '@react-three/drei'
 import { useGLTF } from '@react-three/drei'
 import { proxy, useSnapshot } from "valtio"
 import { Canvas } from 'react-three-fiber'
-import { Row, Col } from 'react-bootstrap'
+
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 const state = proxy({
   current : null,
@@ -23,11 +25,10 @@ function Heart(props) {
       onPointerOver = {(e) => { e.stopPropagation(); set(e.object.material.name) }}
         onPointerOut = {(e) => { e.intersections.length===0 && set(null) }}
         onPointerDown = {(e) => { e.stopPropagation(); state.current = e.object.material.name }}
-        onPointerMissed = {(e) => { state.current = null }}
+        onPointerMissed = {(e) => { state.current = null; console.log(e.object.node.Aorta.position) }}
     >
-      <group rotation={[-Math.PI / 2, 0, 0]}>
-        <group position={[-5.26, 2.68, -4.03]} rotation={[-1.31, -0.32, 2.45]} scale={[1, 1, 1]}>
-          <group rotation={[Math.PI / 2, 0, 0]}>
+      <group rotation={[-Math.PI / 2, -Math.PI / 2, -Math.PI / 2]}>
+        <group position={[12, 7, 100]}>
             <mesh geometry={nodes.Veins_Veins_0.geometry} material={materials.Veins} />
             <mesh geometry={nodes.Hart_basis_Hart_basis_0.geometry} material={materials.Hart_basis} />
             <mesh geometry={nodes.Valves_Valves_0.geometry} material={materials.Valves} />
@@ -37,7 +38,6 @@ function Heart(props) {
             <mesh geometry={nodes.Pulmonary_trunk_Pulmonary_trunk_0.geometry} material={materials.Pulmonary_trunk} />
             <mesh geometry={nodes.Heartear_Heartear_0.geometry} material={materials.Heartear} />
             <mesh geometry={nodes.Arteries2_Arteries2_0.geometry} material={materials.Arteries2} />
-          </group>
         </group>
       </group>
     </group>
@@ -67,25 +67,46 @@ function Picker() {
 export default class HeartWindow extends Component {
   render() {
       return (
-          <>
-            <Row>
-                <Col>
-                  <Picker />
-                </Col>
-                <Col>
-                  <div style={{width: "400px", height: "400px", border: "solid 1px black"}}>
-                  <Canvas>
-                  <ambientLight intensity={0.5}/>
-                  <pointLight position={[10, 10, 10]} />
-                  <Suspense fallback="null">
-                      <Heart />
-                  </Suspense>
-                  <OrbitControls />
-                  </Canvas>
-                  </div>
-              </Col>
-            </Row>
-          </>
+        <Fragment>
+      <Grid container>
+        <div
+          style={{ width: "400px", height: "400px", border: "solid 1px black" }}
+        >
+          <Canvas>
+            <ambientLight intensity={0.5} />
+            <pointLight position={[10, 10, 10]} />
+            <Suspense fallback="Loading...">
+              <Heart />
+            </Suspense>
+            <OrbitControls />
+          </Canvas>
+        </div>
+      </Grid>
+      <Grid container>
+        <Picker />
+      </Grid>
+    </Fragment>
       )
   }
 }
+
+
+{/* <>
+<Row>
+    <Col>
+      <Picker />
+    </Col>
+    <Col>
+      <div style={{width: "400px", height: "400px", border: "solid 1px black"}}>
+      <Canvas>
+      <ambientLight intensity={0.5}/>
+      <pointLight position={[10, 10, 10]} />
+      <Suspense fallback="null">
+          <Heart />
+      </Suspense>
+      <OrbitControls />
+      </Canvas>
+      </div>
+  </Col>
+</Row>
+</> */}

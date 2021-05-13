@@ -16,9 +16,16 @@ import Notifications from './Notifications'
 
 import MyButton from '../../util/MyButton'
 
-const styles = {
-
-}
+const styles = theme => ({
+  ...theme.spreadIt,
+    rigthContent: {
+      flexGrow: 1,
+      display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+    }
+})
 
 
 
@@ -48,10 +55,10 @@ class Navbar extends Component {
                 <Button color='inherit' component={Link} to="/vr"> VR </Button>
                 <Button color='inherit' component={Link} to="/test"> TEST </Button>
                 <Button color='inherit' component={Link} to="/anatomyatlas"> Anatomy Atlas </Button>
-                <Button color='inherit' component={Link} to={`/profile/${handle}`}> Profile </Button>
-              <Notifications />
-              <UploadContent />
-                <Button color='inherit' component={Link} to='/' onClick={this.handleLogout}>Log out</Button>
+              <Notifications className={classes.rigthContent} />
+              <UploadContent className={classes.rigthContent} />
+                <Button color='inherit' component={Link} to={`/profile/${handle}`} className={classes.rigthContent}> Profile </Button>
+                <Button color='inherit' component={Link} to='/' onClick={this.handleLogout} className={classes.rigthContent}>Log out</Button>
             </Fragment>
           ): (
             <Fragment>
@@ -62,8 +69,8 @@ class Navbar extends Component {
                 <Button color='inherit' component={Link} to="/vr"> VR </Button>
                 <Button color='inherit' component={Link} to="/test"> TEST </Button>
                 <Button color='inherit' component={Link} to="/anatomyatlas"> Anatomy Atlas </Button>
-                <Button color='inherit' component={Link} to="/login"> Login </Button>
-                <Button color='inherit' component={Link} to="/signup"> Sign Up </Button>
+                <Button color='inherit' component={Link} to="/login" className={classes.rigthContent}> Login </Button>
+                <Button color='inherit' component={Link} to="/signup" className={classes.rigthContent}> Sign Up </Button>
               </Fragment>
           )}
         </Toolbar>
