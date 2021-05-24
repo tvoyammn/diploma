@@ -10,7 +10,7 @@ import {
   POST_VIDEO,
   SET_VIDEO,
   STOP_LOADING_UI,
-  SUBMIT_COMMENT,
+  SUBMIT_COMMENT_VIDEO,
 } from "../types";
 import axios from "axios";
 
@@ -66,9 +66,9 @@ export const postVideo = (newVideo) => (dispatch) => {
 };
 
 //like a video
-export const likeVideo = (videoId) => (dispatch) => {
+export const likeVideo = (contentId, contentType) => (dispatch) => {
   axios
-    .get(`/video/${videoId}/like`)
+    .get(`/${contentType}/${contentId}/like`)
     .then((res) => {
       dispatch({
         type: LIKE_VIDEO,
@@ -79,9 +79,9 @@ export const likeVideo = (videoId) => (dispatch) => {
 };
 
 //unlike a video
-export const unlikeVideo = (videoId) => (dispatch) => {
+export const unlikeVideo = (contentId, contentType) => (dispatch) => {
   axios
-    .get(`/video/${videoId}/unlike`)
+    .get(`/${contentType}/${contentId}/unlike`)
     .then((res) => {
       dispatch({
         type: UNLIKE_VIDEO,
@@ -91,12 +91,12 @@ export const unlikeVideo = (videoId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 //Submit a comment
-export const submitComment = (videoId, commentData) => (dispatch) => {
+export const submitComment = (contentId, contentType, commentData) => (dispatch) => {
   axios
-    .post(`/video/${videoId}/comment`, commentData)
+    .post(`/${contentType}/${contentId}/comment`, commentData)
     .then((res) => {
       dispatch({
-        type: SUBMIT_COMMENT,
+        type: SUBMIT_COMMENT_VIDEO,
         payload: res.data,
       });
       dispatch(clearErrors());
@@ -118,7 +118,7 @@ export const deleteVideo = (videoId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const getUserData = (userHandle) => (dispatch) => {
+export const getUserVideos = (userHandle) => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios
     .get(`/user/${userHandle}`)

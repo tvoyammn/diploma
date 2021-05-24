@@ -1,6 +1,7 @@
 import React, { Component, useRef, Suspense } from 'react'
 import { Canvas } from 'react-three-fiber'
 import { useGLTF , OrbitControls, PerspectiveCamera} from '@react-three/drei'
+import { STLViewer } from 'react-stl-obj-viewer';
 
 function Skull(props) {
     const group = useRef()
@@ -15,17 +16,15 @@ function Skull(props) {
 export default class BrainObserver1 extends Component {
     render() {
         return (
-            <div style={{width: "400px", height: "400px", border: "solid 1px black"}}>
-            <Canvas>
-                <ambientLight intensity={0.5}/>
-                <pointLight position={[10, 10, 10]} />
-                <Suspense fallback="null">
-                <Skull />
-                </Suspense>
-                <PerspectiveCamera makeDefault position={[0, 0.5, 0.5]} />
-                <OrbitControls />
-            </Canvas>
-            </div>
+            <STLViewer
+            onSceneRendered={(element) => {
+                console.log(element)
+            }}
+            sceneClassName="test-scene"
+            file={"https://firebasestorage.googleapis.com/v0/b/studmedexpert-b931c.appspot.com/o/brain.stl?alt=media&token=83b4e552-98dd-44f0-8ed4-ab4714621898"}
+            className="obj"
+            modelColor="#black"
+            id="model"/>
         )
     }
 }

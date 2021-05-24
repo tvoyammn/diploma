@@ -43,7 +43,7 @@ export default function (state = initialState, action) {
           ...state.likes,
           {
             userHandle: state.credentials.handle,
-            videoId: action.payload.videoId,
+            contentId: action.payload.videoId,
           },
         ],
       };
@@ -51,7 +51,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         likes: state.likes.filter(
-          (like) => like.videoId !== action.payload.videoId
+          (like) => like.contentId !== action.payload.videoId
         ),
       };
       case MARK_NOTIFICATIONS_READ:

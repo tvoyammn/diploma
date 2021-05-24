@@ -3,7 +3,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
-import { getVideos } from "../redux/actions/dataActions";
+import { getVideos } from "../redux/actions/videoActions";
 
 import Grid from "@material-ui/core/Grid";
 
@@ -17,7 +17,7 @@ class videos extends Component {
   }
 
   render() {
-    const { videos, loading } = this.props.data;
+    const { videos, loading } = this.props.videoData;
     let recentVideosMarkup = !loading ? (
       videos.map((video) => <Video key={video.videoId} video={video} />)
     ) : (
@@ -38,11 +38,11 @@ class videos extends Component {
 
 videos.propTypes = {
   getVideos: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
+  videoData: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  data: state.data,
+  videoData: state.videoData,
 });
 
 export default connect(mapStateToProps, { getVideos })(videos);

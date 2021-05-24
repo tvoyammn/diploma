@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
+import { STLViewer } from "react-stl-obj-viewer";
+
 import withStyles from "@material-ui/core/styles/withStyles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -16,15 +18,15 @@ import ChatIcon from "@material-ui/icons/Chat";
 
 import ReactPlayer from "react-player";
 
-import DeleteVideo from './DeleteVideo'
-import VideoDialog from './VideoDialog'
+// import DeleteVideo from "./DeleteVideo";
+// import VideoDialog from "./VideoDialog";
 
-import MyButton from "../../util/MyButton";
-import LikeButton from "./LikeButton";
+// import MyButton from "../../util/MyButton";
+// import LikeButton from "./LikeButton";
 
 const styles = {
   card: {
-    position: 'relative',
+    position: "relative",
     display: "flex",
     marginBottom: 20,
   },
@@ -39,14 +41,14 @@ const styles = {
   },
 };
 
-class Video extends Component {
-
+class Model extends Component {
   render() {
     dayjs.extend(relativeTime);
     const {
       classes,
-      video: {
-        title,
+      model: {
+        name,
+        description,
         createdAt,
         userImage,
         userHandle,
@@ -55,25 +57,30 @@ class Video extends Component {
         commentCount,
         url,
       },
-      user: { authenticated, credentials: { handle } },
+      user: {
+        authenticated,
+        credentials: { handle },
+      },
     } = this.props;
 
-    
-
-    const deleteButton = authenticated && userHandle === handle ? (
-      <DeleteVideo videoId={ videoId }/>
-    ) : null
+    // const deleteButton = authenticated && userHandle === handle ? (
+    //   <DeleteVideo videoId={ videoId }/>
+    // ) : null
 
     return (
       <Card className={classes.card}>
-        <ReactPlayer url={url} controls></ReactPlayer>
+        <STLViewer
+          onSceneRendered={(element) => {
+            console.log(element);
+          }}
+          sceneClassName="test-scene"
+          url={url}
+          className="obj"
+          modelColor="#FF0000"
+        />
         <CardContent className={classes.content}>
-          <Typography variant="h6">{title}</Typography>
-          <Typography variant="body1">
-            Video Descriptionssssssss ssssssssssssssssssssssssssss
-            ssssssssssssssssssssssssssss ssssssssssssssssssssssssssss
-            ssssssssssssssssssssssssssss ssssssssssssssss
-          </Typography>
+          <Typography variant="h6">{name}</Typography>
+          <Typography variant="body1">{description}</Typography>
 
           <Typography
             variant="body2"
@@ -86,34 +93,36 @@ class Video extends Component {
             <Avatar src={userImage} />
             {userHandle}
           </Typography>
-          {deleteButton}
+          {/* {deleteButton} */}
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).fromNow()}
           </Typography>
-          <LikeButton contentId={videoId} contentType={"video"}/>
+          {/* <LikeButton contentId={videoId} contentType={"video"} />
           <span>{likeCount} likes</span>
           <MyButton tip="comments">
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentCount} comments</span>
-          <VideoDialog videoId={videoId} userHandle={userHandle} openDialog={this.props.openDialog} />
+          <VideoDialog
+            videoId={videoId}
+            userHandle={userHandle}
+            openDialog={this.props.openDialog}
+          /> */}
         </CardContent>
       </Card>
     );
   }
 }
 
-Video.propTypes = {
+Model.propTypes = {
   user: PropTypes.object.isRequired,
-  video: PropTypes.object.isRequired,
+  model: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  openDialog: PropTypes.bool
+  openDialog: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(
-  mapStateToProps
-)(withStyles(styles)(Video));
+export default connect(mapStateToProps)(withStyles(styles)(Model));

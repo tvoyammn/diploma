@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
-import { submitComment } from "../../redux/actions/dataActions";
+import { submitComment } from "../../redux/actions/videoActions";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -36,7 +36,7 @@ class CommentFrom extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.submitComment(this.props.videoId, { body: this.state.body });
+    this.props.submitComment(this.props.contentId, this.props.contentType, { body: this.state.body });
   };
 
   render() {
@@ -78,7 +78,8 @@ CommentFrom.propTypes = {
   submitComment: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  videoId: PropTypes.string.isRequired,
+  contentId: PropTypes.string.isRequired,
+  contentType: PropTypes.string.isRequired,
   authenticated: PropTypes.bool.isRequired,
 };
 

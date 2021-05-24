@@ -7,7 +7,7 @@ import EditDetailsButton from "../components/profile/EditDetailsButton";
 
 import { connect } from "react-redux";
 import { logoutUser, uploadImage } from "../redux/actions/userActions";
-import { getUserData } from "../redux/actions/dataActions";
+import { getUserVideos } from "../redux/actions/videoActions";
 
 import dayjs from "dayjs";
 
@@ -48,7 +48,7 @@ class profile extends Component {
 
     if(videoId) this.setState({ videoIdParam: videoId });
 
-    this.props.getUserData(handle);
+    this.props.getUserVideos(handle);
     axios
       .get(`/user/${handle}`)
       .then((res) => {
@@ -70,7 +70,7 @@ class profile extends Component {
 
     const { videoIdParam } = this.state
 
-    const { videos, loading } = this.props.data;
+    const { videos, loading } = this.props.videoData;
 
     const videosMarkup = loading ? (
       <VideoSkeleton />
@@ -108,17 +108,17 @@ class profile extends Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  data: state.data,
+  videoData: state.videoData,
 });
 
-const mapActionsToProps = { uploadImage, getUserData };
+const mapActionsToProps = { uploadImage, getUserVideos };
 
 profile.propTypes = {
   uploadImage: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  getUserData: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
+  getUserVideos: PropTypes.func.isRequired,
+  videoData: PropTypes.object.isRequired,
 };
 
 export default connect(

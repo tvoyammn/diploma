@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
-import { likeVideo, unlikeVideo } from "../../redux/actions/dataActions";
+import { likeVideo, unlikeVideo } from "../../redux/actions/videoActions";
 
 import { Link } from "react-router-dom";
 
@@ -16,18 +16,18 @@ export class LikeButton extends Component {
   likedVideo = () => {
     if (
       this.props.user.likes &&
-      this.props.user.likes.find((like) => like.videoId === this.props.videoId)
+      this.props.user.likes.find((like) => like.contentId === this.props.contentId)
     )
       return true;
     else return false;
   };
 
   likeVideo = () => {
-    this.props.likeVideo(this.props.videoId);
+    this.props.likeVideo(this.props.contentId, this.props.contentType);
   };
 
   unlikeVideo = () => {
-    this.props.unlikeVideo(this.props.videoId);
+    this.props.unlikeVideo(this.props.contentId, this.props.contentType);
   };
 
   render() {
@@ -53,7 +53,8 @@ export class LikeButton extends Component {
 
 LikeButton.propTypes = {
   user: PropTypes.object.isRequired,
-  videoId: PropTypes.string.isRequired,
+  contentId: PropTypes.string.isRequired,
+  contentType: PropTypes.string.isRequired,
   likeVideo: PropTypes.func.isRequired,
   unlikeVideo: PropTypes.func.isRequired,
 };

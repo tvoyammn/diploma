@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
-import { getVideo, clearErrors } from "../../redux/actions/dataActions";
+import { getVideo, clearErrors } from "../../redux/actions/videoActions";
 
 import { Link } from "react-router-dom";
 
@@ -98,7 +98,7 @@ class VideoDialog extends Component {
         videoId,
         title,
         url,
-        addedAt,
+        createdAt,
         likeCount,
         commentCount,
         userImage,
@@ -137,10 +137,10 @@ class VideoDialog extends Component {
           </Typography>
           <hr className={classes.invisibleSeparator} />
           <Typography variant="body2" color="textSecondary">
-            {dayjs(addedAt).format("h:mm a, MMMM DD YYYY")}
+            {dayjs(createdAt).format("h:mm a, MMMM DD YYYY")}
           </Typography>
           <hr className={classes.invisibleSeparator} />
-          <LikeButton videoId={videoId} />
+          <LikeButton contentId={videoId} contentType={"video"}/>
           <span>{likeCount} likes</span>
           <MyButton tip="comments">
             <ChatIcon color="primary" />
@@ -148,7 +148,7 @@ class VideoDialog extends Component {
           <span>{commentCount} comments</span>
         </Grid>
         <hr className={classes.visibleSeparator} />
-        <CommentForm videoId={videoId} />
+        <CommentForm contentId={videoId} contentType={"video"}/>
         <Comments comments={comments} />
       </Grid>
     );
@@ -194,7 +194,7 @@ VideoDialog.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  video: state.data.video,
+  video: state.videoData.video,
   UI: state.UI,
 });
 

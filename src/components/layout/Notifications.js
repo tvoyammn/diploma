@@ -87,7 +87,7 @@ class Notifications extends Component {
                 component={Link}
                 color="default"
                 variant="body1"
-                to={`/profile/${not.recipient}/video/${not.videoId}`}
+                to={`/profile/${not.recipient}/${not.contentType}/${not.contentId}`}
               >
                 {not.sender} {verb} your video {time}
               </Typography>

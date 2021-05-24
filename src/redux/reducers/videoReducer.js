@@ -7,7 +7,7 @@ import {
   DELETE_VIDEO,
   POST_VIDEO,
   SET_VIDEO,
-  SUBMIT_COMMENT,
+  SUBMIT_COMMENT_VIDEO,
 } from "../types";
 
 const initialState = {
@@ -41,7 +41,7 @@ export default function (state = initialState, action) {
       );
       state.videos[index] = action.payload;
       if(state.video.videoId === action.payload.videoId) {
-        state.video = action.payload
+        state.video = { ...state.video, ...action.payload };
       }
       return {
         ...state,
@@ -62,7 +62,7 @@ export default function (state = initialState, action) {
           ...state.videos
         ]
       }
-    case SUBMIT_COMMENT:
+    case SUBMIT_COMMENT_VIDEO:
       return {
         ...state,
         video: {

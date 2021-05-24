@@ -26,6 +26,7 @@ import vr from "./pages/vr";
 import videos from "./pages/videos";
 import audios from "./pages/audios";
 import articles from "./pages/articles";
+import models from './pages/models'
 import test from "./pages/test";
 import anatomyAtlas from "./pages/anatomyAtlas";
 import login from "./pages/login";
@@ -68,6 +69,7 @@ class App extends Component {
                 <Route exact path="/learning/videos" component={videos} />
                 <Route exact path="/learning/audios" component={audios} />
                 <Route exact path="/learning/articles" component={articles} />
+                <Route exact path="/learning/models" component={models} />
                 <Route exact path="/test" component={test} />
                 <Route exact path="/anatomyatlas" component={anatomyAtlas} />
                 <Route exact path="/profile/:handle" component={profile} />
