@@ -82,9 +82,11 @@ class UploadContent extends Component {
 
   handleAudioOpen = () => {
     this.setState({ audioOpen: true });
+    this.handleUploadMenuClose();
   };
 
   handleAudioClose = () => {
+    this.props.clearErrors();
     this.setState({ audioOpen: false });
   };
 
@@ -125,7 +127,7 @@ class UploadContent extends Component {
             videoOpen={this.state.videoOpen}
             handleVideoClose={this.handleVideoClose}
           />
-          <MenuItem>
+          <MenuItem onClick={this.handleAudioOpen}>
             <ListItemIcon>
               <AudiotrackIcon fontSize="small" />
             </ListItemIcon>

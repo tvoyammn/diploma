@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import firebase from "../../util/firebase";
 
-import { postVideo, clearErrors } from "../../redux/actions/videoActions";
+import { postModel, clearErrors } from "../../redux/actions/modelActions";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -169,10 +169,10 @@ class UploadModelDialog extends Component {
 }
 
 UploadModelDialog.propTypes = {
-  postVideo: PropTypes.func.isRequired,
+  postModel: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
-  videoOpen: PropTypes.bool.isRequired,
+  modelOpen: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -180,7 +180,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-  postVideo,
+  postModel,
   clearErrors,
 };
 

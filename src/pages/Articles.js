@@ -1,36 +1,48 @@
-import React, { useState } from 'react'
-import { Container, Button } from 'react-bootstrap';
+import React, { useState, Component } from "react";
+import axios from "axios";
+import PropTypes from "prop-types";
 
-import AddArticleModal from '../components/AddArticleModal'
-import ArticlesList from '../components/ArticlesList'
+import { connect } from "react-redux";
+import { getArticles } from "../redux/actions/articleActions";
 
+import Grid from "@material-ui/core/Grid";
 
-export default function articles() {
-    
+//import VideosList from "../components/video/VideosList";
+import Article from "../components/article/Article";
+//import VideoSkeleton from '../util/VideoSkeleton'
+
+class articles extends Component {
+  componentDidMount() {
+    this.props.getArticles();
+  }
+
+  render() {
+    const { articles, loading } = this.props.articleData;
+    let recentArticlesMarkup = !loading ? (
+      articles.map((article) => <Article key={article.articleId} article={article} />)
+    ) : (
+      <p>Loading...</p>//<VideoSkeleton />
+    );
+    return (
+      <Grid container spacing={10}>
+        <Grid item sm={4} xs={12}>
+          <p>Filter...</p>
+        </Grid>
+        <Grid item sm={8} xs={12}>
+          {recentArticlesMarkup}
+        </Grid>
+      </Grid>
+    );
+  }
 }
 
-// const [isOpen, setOpen] = useState(false)
+articles.propTypes = {
+  getArticles: PropTypes.func.isRequired,
+  articleData: PropTypes.object.isRequired,
+};
 
-//     const openModal = () => setOpen(true);
+const mapStateToProps = (state) => ({
+  articleData: state.articleData,
+});
 
-//     const closeModal = () => setOpen(false);
-
-//         return (
-//             <>
-//             <Container>
-//                 <h1>Articles</h1>
-//                 <Button onClick={openModal}>Add Articel</Button>
-//                 { isOpen ? 
-//                 <AddArticleModal 
-//                     closeModal={closeModal} 
-//                     isOpen={isOpen}
-//                     id={1}
-//                 />
-//                     : 
-//                     null 
-//                 }
-
-//                 <ArticlesList />
-//             </Container>
-//             </>
-//         )
+export default connect(mapStateToProps, { getArticles })(articles);

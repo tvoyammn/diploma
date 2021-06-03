@@ -3,6 +3,8 @@ import thunk from "redux-thunk";
 
 import userReducer from "./reducers/userReducer";
 import videoReducer from "./reducers/videoReducer";
+import audioReducer from './reducers/audioReducer'
+import articleReducer from './reducers/articleReducer'
 import modelReducer from './reducers/modelReducer'
 import uiReducer from "./reducers/uiReducer";
 
@@ -13,6 +15,8 @@ const middleware = [thunk];
 const reducers = combineReducers({
   user: userReducer,
   videoData: videoReducer,
+  audioData: audioReducer,
+  articleData: articleReducer,
   modelData: modelReducer,
   UI: uiReducer,
 });

@@ -1,36 +1,49 @@
-import React, { useState } from 'react'
-import { Container, Button } from 'react-bootstrap';
+import React, { useState, Component } from "react";
+import axios from "axios";
+import PropTypes from "prop-types";
 
-import AddAudioModal from '../components/AddAudioModal'
-import AudiosList from '../components/AudiosList'
+import { connect } from "react-redux";
+import { getAudios } from "../redux/actions/audioActions";
 
-export default function audios() {
+import Grid from "@material-ui/core/Grid";
 
-    
+//import VideosList from "../components/video/VideosList";
+import Audio from "../components/audio/Audio";
+//import VideoSkeleton from '../util/VideoSkeleton'
+
+class audios extends Component {
+  componentDidMount() {
+    this.props.getAudios();
+  }
+
+  render() {
+    const { audios, loading } = this.props.audioData;
+    let recentAudiosMarkup = !loading ? (
+      audios.map((audio) => <Audio key={audio.audioId} audio={audio} />)
+    ) : (
+      <p>Loading...</p>//<VideoSkeleton />
+    );
+    return (
+      <Grid container spacing={10}>
+        <Grid item sm={4} xs={12}>
+          <p>Filter...</p>
+        </Grid>
+        <Grid item sm={8} xs={12}>
+          {recentAudiosMarkup}
+        </Grid>
+      </Grid>
+    );
+  }
 }
 
-// const [isOpen, setOpen] = useState(false)
+audios.propTypes = {
+  getAudios: PropTypes.func.isRequired,
+  audioData: PropTypes.object.isRequired,
+};
 
-// const openModal = () => setOpen(true);
+const mapStateToProps = (state) => ({
+  audioData: state.audioData,
+});
 
-// const closeModal = () => setOpen(false);
+export default connect(mapStateToProps, { getAudios })(audios);
 
-// return (
-//     <>
-//     <Container>
-//         <h1>Audios</h1>
-//         <Button onClick={openModal}>Add Audio</Button>
-//         { isOpen ? 
-//         <AddAudioModal 
-//             closeModal={closeModal} 
-//             isOpen={isOpen}
-//             id={0}
-//         />
-//             : 
-//             null 
-//         }
-
-//         <AudiosList />
-//     </Container>
-//     </>
-// )

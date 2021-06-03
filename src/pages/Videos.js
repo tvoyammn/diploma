@@ -46,32 +46,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getVideos })(videos);
-
-// export default function Videos() {
-//     const [isOpen, setOpen] = useState(false)
-
-//     const openModal = () => setOpen(true);
-
-//     const closeModal = () => setOpen(false);
-
-//     return (
-//         <>
-//         <Container>
-//             <h1>Videos</h1>
-//             <Button onClick={openModal}>Add Video</Button>
-//             { isOpen ?
-//             <AddVideoModal
-//                 closeModal={closeModal}
-//                 isOpen={isOpen}
-//                 id={1}
-//             />
-//                 :
-//                 null
-//             }
-
-//             <VideosList />
-//         </Container>
-//         </>
-//     )
-
-// }
