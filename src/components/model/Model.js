@@ -18,11 +18,11 @@ import ChatIcon from "@material-ui/icons/Chat";
 
 import ReactPlayer from "react-player";
 
-// import DeleteVideo from "./DeleteVideo";
-// import VideoDialog from "./VideoDialog";
+import DeleteModel from "./DeleteModel";
+import ModelDialog from "./ModelDialog";
 
-// import MyButton from "../../util/MyButton";
-// import LikeButton from "./LikeButton";
+ import MyButton from "../../util/MyButton";
+ import LikeButton from "./LikeButton";
 
 const styles = {
   card: {
@@ -52,7 +52,7 @@ class Model extends Component {
         createdAt,
         userImage,
         userHandle,
-        videoId,
+        modelId,
         likeCount,
         commentCount,
         url,
@@ -63,9 +63,9 @@ class Model extends Component {
       },
     } = this.props;
 
-    // const deleteButton = authenticated && userHandle === handle ? (
-    //   <DeleteVideo videoId={ videoId }/>
-    // ) : null
+     const deleteButton = authenticated && userHandle === handle ? (
+       <DeleteModel modelId={ modelId }/>
+     ) : null
 
     return (
       <Card className={classes.card}>
@@ -76,7 +76,7 @@ class Model extends Component {
           sceneClassName="test-scene"
           url={url}
           className="obj"
-          modelColor="#FF0000"
+          modelColor="#FFFFFF"
         />
         <CardContent className={classes.content}>
           <Typography variant="h6">{name}</Typography>
@@ -93,21 +93,21 @@ class Model extends Component {
             <Avatar src={userImage} />
             {userHandle}
           </Typography>
-          {/* {deleteButton} */}
+          {deleteButton}
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).fromNow()}
           </Typography>
-          {/* <LikeButton contentId={videoId} contentType={"video"} />
+          <LikeButton contentId={modelId} contentType={"model"} />
           <span>{likeCount} likes</span>
           <MyButton tip="comments">
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentCount} comments</span>
-          <VideoDialog
-            videoId={videoId}
+          <ModelDialog
+            modelId={modelId}
             userHandle={userHandle}
             openDialog={this.props.openDialog}
-          /> */}
+          />
         </CardContent>
       </Card>
     );

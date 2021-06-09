@@ -238,7 +238,7 @@ export default class HeartWindow extends Component {
         onChange={this.handleChange}
         name="checkedA"
         inputProps={{ 'aria-label': 'secondary checkbox' }}
-      />
+      /> Fill
         <Grid container>
           <Picker />
         </Grid>

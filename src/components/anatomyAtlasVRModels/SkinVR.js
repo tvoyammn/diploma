@@ -66,7 +66,7 @@ export default function SkinVR(props) {
                         <Card.Header> Hair </Card.Header>
                       </Card>
                           <Card.Text className='bg-info' style={{ pointerEvents: "none", display: hairSelected ? "block" : "none", opacity: '0.8' }}>
-                            Hair information asd asd asd asd asd asd asd as dasd asd asd asfa 
+                          Hairs are thin, keratinised skin annexes that are formed in the hair follicle. They consist of three layers: marrow, cortex and cuticle. the amount of melanin in the marrow determines the colour of the hair. Marrow can only be found in terminal hair (scalp, eye brows, armpits, genitalia) and is absent in the vellus hair.
                           </Card.Text>
                     </Html>
                     </mesh>

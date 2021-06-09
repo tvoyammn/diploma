@@ -98,7 +98,7 @@ class profile extends Component {
               handle={handle}
             />
           )}
-          {videosMarkup}
+          {/* {videosMarkup} */}
         </Grid>
         <Grid item sm={4} />
       </Grid>

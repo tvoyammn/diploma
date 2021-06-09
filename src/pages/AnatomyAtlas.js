@@ -67,10 +67,10 @@ class anatomyAtlas extends Component {
         <Tab label="Skin" value={0}/>
         <Tab label="Heart" value={1}/>
         <Tab label="Airways" value={2}/>
-        <Tab label="Item Four" value={3}/>
+        {/* <Tab label="Item Four" value={3}/>
         <Tab label="Item Five" value={4}/>
         <Tab label="Item Six" value={5}/>
-        <Tab label="Item Seven" value={6}/>
+        <Tab label="Item Seven" value={6}/> */}
       </Tabs>
     </div>
         </Grid>

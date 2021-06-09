@@ -27,6 +27,7 @@ const styles = {
     position: 'relative',
     display: "flex",
     marginBottom: 20,
+    height: '275px'
   },
   image: {
     minWidth: 20,

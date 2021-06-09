@@ -15,11 +15,11 @@ import Avatar from "@material-ui/core/Avatar";
 
 import ChatIcon from "@material-ui/icons/Chat";
 
-//import DeleteAudio from './DeleteAudio'
-//import AudioDialog from './AudioDialog'
+import DeleteArticle from './DeleteArticle'
+import ArticleDialog from './ArticleDialog'
 
 import MyButton from "../../util/MyButton";
-//import LikeButton from "./LikeButton";
+import LikeButton from "./LikeButton";
 
 import articleImage from '../../images/articleImage.png'
 
@@ -28,7 +28,7 @@ const styles = {
     position: 'relative',
     display: "flex",
     marginBottom: 20,
-    maxWidth: 345,
+    maxWidth: 400,
   },
   image: {
     minWidth: 20,
@@ -45,6 +45,13 @@ const styles = {
 };
 
 class Article extends Component {
+  // state = {
+  //   numPages: null,
+  //   pageNumber: 1
+  // }
+  // onDocumentLoadSuccess({ numPages }) {
+  //   this.setState({numPages: numPages});
+  // }
 
   render() {
     dayjs.extend(relativeTime);
@@ -66,14 +73,15 @@ class Article extends Component {
 
     
 
-//    const deleteButton = authenticated && userHandle === handle ? (
-//      <DeleteVideo videoId={ videoId }/>
-//    ) : null
+    const deleteButton = authenticated && userHandle === handle ? (
+      <DeleteArticle articleId={ articleId }/>
+    ) : null
 
     return (
       <Card className={classes.card}>
-        <CardMedia className={classes.media} image={articleImage}>
-        </CardMedia>
+        {/* <CardMedia className={classes.media} image={articleImage}>
+
+        </CardMedia> */}
         <CardContent className={classes.content}>
           <Typography variant="h6">{title}</Typography>
           <Typography variant="body1">
@@ -90,17 +98,17 @@ class Article extends Component {
             <Avatar src={userImage} />
             {userHandle}
           </Typography>
-          {/* {deleteButton} */}
+          {deleteButton}
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).fromNow()}
           </Typography>
-          {/* <LikeButton contentId={videoId} contentType={"video"}/>
+          <LikeButton contentId={articleId} contentType={"article"}/>
           <span>{likeCount} likes</span>
           <MyButton tip="comments">
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentCount} comments</span>
-          <VideoDialog videoId={videoId} userHandle={userHandle} openDialog={this.props.openDialog} /> */}
+          <ArticleDialog articleId={articleId} userHandle={userHandle} openDialog={this.props.openDialog} />
         </CardContent>
       </Card>
     );

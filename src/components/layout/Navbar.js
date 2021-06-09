@@ -8,6 +8,7 @@ import { logoutUser } from "../../redux/actions/userActions";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import AppBar from '@material-ui/core/AppBar'
+import Typography from '@material-ui/core/Typography'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
 
@@ -19,12 +20,12 @@ import MyButton from '../../util/MyButton'
 const styles = theme => ({
   ...theme.spreadIt,
     rigthContent: {
-      flexGrow: 1,
-      display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
+      position: 'absolute',
+        display: 'flex'
     },
-    }
+    grow: {
+      flexGrow: 1,
+    },
 })
 
 
@@ -51,26 +52,28 @@ class Navbar extends Component {
             <Fragment>
               <Button color='inherit' component={Link} to="/"> Home </Button>
               <Button color='inherit' component={Link} to="/learning"> Learning </Button>
-                <Button color='inherit' component={Link} to="/comparation"> Comparation </Button>
-                <Button color='inherit' component={Link} to="/vr"> VR </Button>
-                <Button color='inherit' component={Link} to="/test"> TEST </Button>
+                {/* <Button color='inherit' component={Link} to="/comparation"> Comparation </Button> */}
                 <Button color='inherit' component={Link} to="/anatomyatlas"> Anatomy Atlas </Button>
-              <Notifications className={classes.rigthContent} />
-              <UploadContent className={classes.rigthContent} />
-                <Button color='inherit' component={Link} to={`/profile/${handle}`} className={classes.rigthContent}> Profile </Button>
-                <Button color='inherit' component={Link} to='/' onClick={this.handleLogout} className={classes.rigthContent}>Log out</Button>
+                <Button color='inherit' component={Link} to="/vr"> VR </Button>
+                {/* <Button color='inherit' component={Link} to="/test"> TEST </Button> */}
+                <Typography variant="h6" className={classes.grow} />
+              <Notifications />
+              <UploadContent />
+                <Button color='inherit' component={Link} to={`/profile/${handle}`}> Profile </Button>
+                <Button color='inherit' component={Link} to='/' onClick={this.handleLogout}>Log out</Button>
             </Fragment>
           ): (
             <Fragment>
                 <Button color='inherit' component={Link} to="/"> Home </Button>
                 <Button color='inherit' component={Link} to="/learning"> Learning </Button>
-                <Button color='inherit' component={Link} to="/brain"> Brain </Button>
-                <Button color='inherit' component={Link} to="/comparation"> Comparation </Button>
-                <Button color='inherit' component={Link} to="/vr"> VR </Button>
-                <Button color='inherit' component={Link} to="/test"> TEST </Button>
+                {/* <Button color='inherit' component={Link} to="/brain"> Brain </Button>
+                <Button color='inherit' component={Link} to="/comparation"> Comparation </Button> */}
                 <Button color='inherit' component={Link} to="/anatomyatlas"> Anatomy Atlas </Button>
-                <Button color='inherit' component={Link} to="/login" className={classes.rigthContent}> Login </Button>
-                <Button color='inherit' component={Link} to="/signup" className={classes.rigthContent}> Sign Up </Button>
+                <Button color='inherit' component={Link} to="/vr"> VR </Button>
+                <Typography variant="h6" className={classes.grow} />
+                {/* <Button color='inherit' component={Link} to="/test"> TEST </Button> */}
+                <Button color='inherit' component={Link} to="/login"> Login </Button>
+                <Button color='inherit' component={Link} to="/signup"> Sign Up </Button>
               </Fragment>
           )}
         </Toolbar>
